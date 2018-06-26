@@ -23,7 +23,6 @@ public class UserMealWithExceed {
     }
 
     public LocalDateTime getDateTime() {
-
         return dateTime;
     }
 }
