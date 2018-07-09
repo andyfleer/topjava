@@ -1,10 +1,16 @@
 package ru.javawebinar.topjava.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class Meal {
+
+public class Meal extends AbstractBaseEntity{
+    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepositoryImpl.class);
     private Integer id;
 
     private final LocalDateTime dateTime;
@@ -13,18 +19,27 @@ public class Meal {
 
     private final int calories;
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
-        this(null, dateTime, description, calories);
+    private final int userId;
+
+    public Meal(int userId, LocalDateTime dateTime, String description, int calories) {
+        this(null, userId, dateTime, description, calories);
+        log.debug("In Meal Constructor");
     }
 
-    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
+    public Meal(Integer id, int userId, LocalDateTime dateTime, String description, int calories) {
+        super(id);
         this.id = id;
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
+        this.userId = userId;
     }
 
-    public Integer getId() {
+    public int getUserId() {
+        return userId;
+    }
+
+        public Integer getId() {
         return id;
     }
 
