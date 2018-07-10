@@ -1,10 +1,14 @@
 package ru.javawebinar.topjava.repository.mock;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,6 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
+    protected final Logger log = LoggerFactory.getLogger(getClass());
     private Map<Integer, Meal> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
@@ -50,10 +55,24 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public Collection<Meal> getAll(int userId) {
+        log.info("getAll in repository");
         List<Meal> list = new ArrayList<>();
         for (Map.Entry<Integer, Meal> entry:
                 repository.entrySet()) {
             if (entry.getValue().getUserId() == userId) {
+                list.add(entry.getValue());
+            }
+        }
+        return list;
+    }
+
+
+    public Collection<Meal> getAll(int userId, LocalDate from, LocalDate to) {
+        log.info("getAll in repository (overloaded");
+        List<Meal> list = new ArrayList<>();
+        for (Map.Entry<Integer, Meal> entry:
+                repository.entrySet()) {
+            if (entry.getValue().getUserId() == userId && DateTimeUtil.isBetweenDate(entry.getValue().getDate(), from, to)) {
                 list.add(entry.getValue());
             }
         }

@@ -9,6 +9,11 @@
 <ul>
     <li><a href="users">Users</a></li>
     <li><a href="meals">Meals</a></li>
+    <br />
+    <select onchange="document.location='meals?action=changeuser&value=' + this.value">
+        <option value="0">User 1</option>
+        <option value="1">User 2</option>
+    </select>
 </ul>
 </body>
 </html>

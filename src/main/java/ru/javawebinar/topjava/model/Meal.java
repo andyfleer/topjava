@@ -23,7 +23,6 @@ public class Meal extends AbstractBaseEntity{
 
     public Meal(int userId, LocalDateTime dateTime, String description, int calories) {
         this(null, userId, dateTime, description, calories);
-        log.debug("In Meal Constructor");
     }
 
     public Meal(Integer id, int userId, LocalDateTime dateTime, String description, int calories) {

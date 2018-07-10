@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
@@ -19,7 +19,24 @@
 <body>
 <section>
     <h3><a href="index.html">Home</a></h3>
+    <c:set var="userId" value="${userId}" />
+
+    <select onchange="document.location='meals?action=changeuser&value=' + this.value">
+        <option value="0" ${ userId == 0 ? 'selected' : '' }>User 1</option>
+        <option value="1" ${ userId == 1 ? 'selected' : '' }>User 2</option>
+    </select>
     <h2>Meals</h2>
+    <form action="meals" method="get">
+        <input type="hidden" name="action" value="filterByDate" />
+        <h4>Фильтрация по дате</h4>
+        <label>От</label>
+        <input type="date" name="dateFrom" />
+        <label>До</label>
+        <input type="date" name="dateTo" />
+        <input type="Submit" value="Фильтровать">
+    </form>
+
+
     <a href="meals?action=create">Add Meal</a>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
